@@ -95,5 +95,5 @@ yum install httpd -y
 chkconfig httpd on
 
 # put some content in to prove its your VM
-echo 'this is $key web server' > /var/www/html/index.html
+echo "this is $VMNAME web server" > /var/www/html/index.html
 

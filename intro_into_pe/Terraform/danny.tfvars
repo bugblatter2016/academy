@@ -3,7 +3,7 @@ public_key_path = "~/.ssh/id_rsa.pub"
 aws_region = "eu-west-1"
 
 aws_amis = {
-  eu-west-1 = "ami-05f40e79826dac308"
+  eu-west-1 = "ami-02e227b56442436c1"
 }
 
 owner = "dannybutroyd"

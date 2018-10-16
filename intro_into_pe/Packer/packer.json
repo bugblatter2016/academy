@@ -37,6 +37,9 @@
         "type": "shell",
         "execute_command": "echo 'packer' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'",
         "pause_before": "5s",
+        "environment_vars": [
+            "VMNAME={{user `vm_name`}}"
+        ],
         "scripts": [
             "scripts/001_bootstrap.sh"
         ]
