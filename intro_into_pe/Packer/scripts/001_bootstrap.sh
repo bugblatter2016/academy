@@ -89,3 +89,11 @@ yum update -y
 # configure the timezone of the operating system to be UTC
 replace_or_append '/etc/sysconfig/clock' '^ZONE' 'UTC' '@CCENUM@'
 ln -sf /usr/share/zoneinfo/UTC /etc/localtime
+
+# install apache for testing and make sure it starts on boot
+yum install httpd -y
+chkconfig httpd on
+
+# put some content in to prove its your VM
+echo 'this is $key web server' > /var/www/html/index.html
+

@@ -105,6 +105,14 @@ resource "aws_security_group" "elb" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # SSH access from anywhere
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   # outbound internet access
   egress {
     from_port   = 0
@@ -131,12 +139,20 @@ resource "aws_elb" "web" {
   security_groups = ["${aws_security_group.elb.id}"]
   instances       = ["${aws_instance.web.id}"]
 
-  listener {
-    instance_port     = 80
-    instance_protocol = "http"
-    lb_port           = 80
-    lb_protocol       = "http"
-  }
+  listener = [
+    {
+      instance_port     = 80
+      instance_protocol = "http"
+      lb_port           = 80
+      lb_protocol       = "http"
+    },
+    {
+      instance_port     = 22
+      instance_protocol = "tcp"
+      lb_port           = 22
+      lb_protocol       = "tcp"
+    }
+    ]
 
   tags {
     Name    = "${var.owner}-elb",
@@ -171,4 +187,9 @@ resource "aws_instance" "web" {
   # environment it's more common to have a separate private subnet for
   # backend instances.
   subnet_id = "${aws_subnet.default.id}"
+
+  # update the Name tag so it's easily identifiable in AWS Console
+  tags {
+    Name = "${var.owner}-ec2"
+  }
 }
