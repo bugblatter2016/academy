@@ -1,7 +1,0 @@
-{
-    "vm_name": "david-kirk-intro-to-pe",
-    "ssh_username": "ec2-user",
-    "root_volume_size": "8",
-    "instance_owner": "Dave Kirk",
-    "region": "eu-west-1"
-}

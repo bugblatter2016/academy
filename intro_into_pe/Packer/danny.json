@@ -1,0 +1,7 @@
+{
+  "vm_name": "danny-butroyd-intro-to-pe",
+  "ssh_username": "ec2-user",
+  "root_volume_size": "8",
+  "instance_owner": "Danny Butroyd",
+  "region": "eu-west-1"
+}
