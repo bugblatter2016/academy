@@ -1,0 +1,77 @@
+{
+    "variables": {
+        "vm_name": "",
+        "ssh_username": "",
+        "root_volume_size": "16",
+        "instance_owner": "",
+        "region": "eu-west-1"
+    },
+
+    "builders": [{
+        "type": "amazon-ebs",
+        "region": "{{ user `region` }}",
+        "source_ami_filter": {
+            "filters": {
+                "virtualization-type": "hvm",
+                "name": "amzn-ami-hvm*-x86_64-ebs",
+                "root-device-type": "ebs"
+            },
+            "owners": [
+                "137112412989", 
+                "591542846629", 
+                "801119661308", 
+                "102837901569", 
+                "013907871322", 
+                "206029621532", 
+                "286198878708", 
+                "443319210888"
+            ],
+            "most_recent": true
+        },
+        "instance_type": "t2.micro",
+        "ssh_username": "{{ user `ssh_username` }}",
+        "ami_name": "{{ user `vm_name` }}-{{ timestamp }}",
+        "ssh_pty" : "true",
+        "ami_block_device_mappings": [
+            {
+                "device_name": "/dev/xvda",
+                "delete_on_termination": true,
+                "volume_size": "{{ user `root_volume_size` }}",
+                "volume_type": "gp2"
+            }
+        ],
+        "launch_block_device_mappings": [
+            {
+              "device_name": "/dev/xvda",
+              "delete_on_termination": true,
+              "volume_size": "{{ user `root_volume_size` }}",
+              "volume_type": "gp2"
+            }
+        ],
+        "run_tags": {
+            "Owner": "{{ user `instance_owner` }}",
+            "Project": "IntroductionToPlatformEngineering"
+        },
+        "run_volume_tags": {
+            "Owner": "{{ user `instance_owner` }}",
+            "Project": "IntroductionToPlatformEngineering"
+        },
+        "tags": {
+            "Owner": "{{ user `instance_owner` }}",
+            "Project": "IntroductionToPlatformEngineering"
+        }
+    }],
+
+    "provisioners": [{
+        "type": "shell",
+        "execute_command": "echo 'packer' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'",
+        "pause_before": "5s",
+        "scripts": [
+            "scripts/001_bootstrap.sh"
+        ]
+    }],
+
+    "post-processors": [
+
+    ]
+}
