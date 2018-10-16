@@ -1,13 +1,11 @@
-# Exercise 3: Building an AMI With Packer
+# Exercise 1: Building an AMI With Packer
 
 ## Tasks
 
-1. Update your individual variables file to ensure it has the required details so you'll be able to ssh to the instance and differentiate it from each otehr
+1. Update your individual variables file to ensure it has the required details so you'll be able to ssh to the instance and differentiate it from each other
 2. Build the AMI through Packer
 3. Update the `001_bootstrap.sh` script to ensure that the cURL package is installed
 4. Build the new AMI through Packer
-5. Add a new script to install Apache & PHP (Apache package name is `httpd24` and PHP package name is `php70`)
-6. Build the final AMI through Packer
 
 ## Further Tasks
 
